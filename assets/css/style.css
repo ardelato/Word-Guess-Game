@@ -1,0 +1,38 @@
+body{
+    background-image: url("../images/backdrop.png");
+    background-repeat: repeat;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#img-banner{
+    width: 95%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.header-banner{
+    margin: 0 auto;
+    text-align: center;
+    background-color: white;
+    width: 75%;
+}
+
+h1 {
+    font-family: 'Bangers', cursive;
+    font-size: 73px;
+    letter-spacing: 10px;
+    margin-bottom: 10px
+}
+
+h2{
+    margin-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 0;
+}
+
+.game-content{
+    margin: 0 auto;
+    width: 75%;
+    border: 2px dotted black;
+    background-color: thistle;
+}
