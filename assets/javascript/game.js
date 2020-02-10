@@ -18,7 +18,7 @@ var question;
 
 var imageElm;
 
-//Format (Question,Answer)
+//Format (Question,Answer,image)
 var guessCollection = [
 	{
 		question: 'What show featured talking animals with an aardvark as the main character?',
