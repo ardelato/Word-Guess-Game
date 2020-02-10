@@ -104,7 +104,7 @@ document.onkeydown = function(event) {
 	if (event.keyCode >= 65 && event.keyCode <= 90) {
 		var guess = event.key.toLowerCase();
 		console.log('Guess:' + guess);
-		if (!guessedLetters.includes(guess) && !answer.includes(guess)) {
+		if (!guessedLetters.includes(guess) && !answer.toLowerCase().includes(guess)) {
 			wrongGuess(guess);
 		}
 	}
