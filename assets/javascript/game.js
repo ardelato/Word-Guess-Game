@@ -25,13 +25,13 @@ var guessCollection = [
 		question: 'What show featured talking animals with an aardvark as the main character?',
 		answer: 'Arthur',
 		image: 'assets/images/Arthur.png',
-		sound: 'assets/sounds/heyArnoldSoundBite.mp3'
+		sound: 'assets/sounds/arthurSoundBite.mp3'
 	},
 	{
 		question: 'Pika Pika??',
 		answer: 'Pokemon',
 		image: 'assets/images/pokemon.png',
-		sound: 'assets/sounds/heyArnoldSoundBite.mp3'
+		sound: 'assets/sounds/pokemonSoundBite.mp3'
 	},
 	{
 		question: 'Football headed character who lives in Brookyln; not Stewie from Family Guy',
@@ -49,19 +49,19 @@ var guessCollection = [
 		question: 'Talking Babies that go on adventures',
 		answer: 'Rugrats',
 		image: 'assets/images/Rugrats.jpg',
-		sound: 'assets/sounds/heyArnoldSoundBite.mp3'
+		sound: 'assets/sounds/rugratsSoundBite.mp3'
 	},
 	{
 		question: 'Its time to D-D-D-D DUEL!',
 		answer: 'Yu-Gi-Oh',
 		image: 'assets/images/yugioh.jpg',
-		sound: 'assets/sounds/heyArnoldSoundBite.mp3'
+		sound: 'assets/sounds/yugiohSoundBite.mp3'
 	},
 	{
 		question: 'Woogie, Woogie, Woogie, Woogie.',
 		answer: 'Rocket Power',
 		image: 'assets/images/rocketpower.jpg',
-		sound: 'assets/sounds/heyArnoldSoundBite.mp3'
+		sound: 'assets/sounds/rocketPowerSoundBite.mp3'
 	}
 ];
 
