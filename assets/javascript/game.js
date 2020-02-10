@@ -11,7 +11,7 @@ var guessedLettersElm;
 var currentLetter;
 
 var answer;
-var coveredAnswer = '';
+var coveredAnswer = [];
 var lettersLeft;
 
 var question;
@@ -40,21 +40,21 @@ function isLetter(char) {
 
 // Creates a substitute string for the answer, repalcing letters with an underscore
 function outPutWordSubstitute() {
-	coveredAnswer = '';
+	coveredAnswer = [];
 	lettersLeft = answer.length;
 
 	for (var i = 0; i < answer.length; i++) {
 		if (!isLetter(answer[i])) {
-			coveredAnswer += answer[i];
+			coveredAnswer.push(answer[i]);
 			lettersLeft--;
 		} else if (answer[i] === ' ') {
-			coveredAnswer += ' ';
+			coveredAnswer.push(' ');
 			lettersLeft--;
 		} else {
-			coveredAnswer += '_';
+			coveredAnswer.push('_');
 		}
 	}
-	hangWordElm.innerHTML = coveredAnswer;
+	hangWordElm.innerHTML = coveredAnswer.join('');
 }
 
 // Resets the game for a new question
@@ -81,7 +81,7 @@ function updateStats(newGuess) {
 	guessLeftElm.innerHTML = 'NUmber of Guesses Remaing: ' + gleft;
 	guessedLetters.push(newGuess);
 	guessedLettersElm.innerHTML = guessedLetters.toString();
-	hangWordElm.innerHTML = coveredAnswer;
+	hangWordElm.innerHTML = coveredAnswer.join('');
 }
 
 // Logic if guessed character is wrong
