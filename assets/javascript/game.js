@@ -12,25 +12,53 @@ var currentLetter;
 
 var answer;
 var coveredAnswer = [];
-var lettersLeft;
 
+var lettersLeft;
 var question;
 
+var imageElm;
+
 //Format (Question,Answer)
-var guessCollection = {
-	'What show featured talking animals with an aardvark as the main character?': 'Arthur',
-	'Pika Pika??': 'Pokemon',
-	'Football headed character who lives in Brookyln; not Stewie from Family Guy': 'Hey Arnold!',
-	'Cowardly Dog': 'Courage',
-	'Talking Babies that go on adventures': 'Rugrats',
-	'Its time to D-D-D-D DUEL!': 'Yu-Gi-Oh',
-	'A Teenage Witch': 'Sabrina'
-};
-// Make it easier to randomly pick a q and a
-var qaSet = Object.entries(guessCollection);
+var guessCollection = [
+	{
+		question: 'What show featured talking animals with an aardvark as the main character?',
+		answer: 'Arthur',
+		image: 'assets/images/Arthur.png'
+	},
+	{
+		question: 'Pika Pika??',
+		answer: 'Pokemon',
+		image: 'assets/images/pokemon.png'
+	},
+	{
+		question: 'Football headed character who lives in Brookyln; not Stewie from Family Guy',
+		answer: 'Hey Arnold!',
+		image: 'assets/images/hey arnold.png'
+	},
+	{
+		question: 'Cowardly Dog',
+		answer: 'Courage',
+		image: 'assets/images/courage.jpg'
+	},
+	{
+		question: 'Talking Babies that go on adventures',
+		answer: 'Rugrats',
+		image: 'assets/images/Rugrats.jpg'
+	},
+	{
+		question: 'Its time to D-D-D-D DUEL!',
+		answer: 'Yu-Gi-Oh',
+		image: 'assets/images/yugioh.jpg'
+	},
+	{
+		question: 'Woogie, Woogie, Woogie, Woogie.',
+		answer: 'Rocket Power',
+		image: 'assets/images/rocketpower.jpg'
+	}
+];
 
 function getRandomQA() {
-	return qaSet[Math.floor(Math.random() * qaSet.length)];
+	return guessCollection[Math.floor(Math.random() * guessCollection.length)];
 }
 
 //Will check if character is an alphabetial letter
@@ -59,11 +87,13 @@ function outPutWordSubstitute() {
 
 // Resets the game for a new question
 function resetGame() {
-	var qa = getRandomQA();
-	question.innerHTML = qa[0];
-	answer = qa[1];
+	var qai = getRandomQA();
+	question.innerHTML = qai['question'];
+	answer = qai['answer'];
+	imageElm.src = qai['image'];
+
 	outPutWordSubstitute();
-	console.log(qa[0]);
+	console.log(qai['question']);
 	console.log(answer);
 
 	winsElm.innerHTML = 'Wins: ' + numWins;
@@ -78,7 +108,7 @@ function resetGame() {
 //Updates the elements instead of resetting
 function updateStats(newGuess) {
 	winsElm.innerHTML = 'Wins: ' + numWins;
-	guessLeftElm.innerHTML = 'NUmber of Guesses Remaing: ' + gleft;
+	guessLeftElm.innerHTML = 'Number of Guesses Remaing: ' + gleft;
 	guessedLetters.push(newGuess);
 	guessedLettersElm.innerHTML = guessedLetters.toString();
 	hangWordElm.innerHTML = coveredAnswer.join('');
@@ -94,11 +124,12 @@ function wrongGuess(guess) {
 	}
 }
 
+function winnerWinner() {}
 //Logic if guessed character exists in Answer
 function correctGuess(guess) {
 	var i = -1;
 	console.log('Correct Guess with letter: ' + guess);
-	console.log('Current lettersleft ' + lettersLeft);
+	console.log('Current lettersleft ' + (lettersLeft - 1));
 
 	while ((i = answer.toLowerCase().indexOf(guess, i + 1)) >= 0) {
 		//Strings are immutable, change to character array
@@ -106,12 +137,14 @@ function correctGuess(guess) {
 		coveredAnswer[i] = answer[i];
 	}
 	if (lettersLeft === 0) {
-		console.log('You won?');
+		winnerWinner();
 		numWins++;
 		resetGame();
+	} else {
+		updateStats(guess);
 	}
-	updateStats(guess);
 }
+
 // Will attach DOMs once the HTML fully loads
 window.onload = function() {
 	winsElm = document.getElementById('win-status');
@@ -119,6 +152,7 @@ window.onload = function() {
 	guessLeftElm = document.getElementById('guesses-left');
 	guessedLettersElm = document.getElementById('guessed-letters');
 	question = document.getElementById('question');
+	imageElm = document.getElementById('img-banner');
 	resetGame();
 };
 
