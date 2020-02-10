@@ -101,8 +101,9 @@ function correctGuess(guess) {
 	console.log('Current lettersleft ' + lettersLeft);
 
 	while ((i = answer.toLowerCase().indexOf(guess, i + 1)) >= 0) {
-		//Strings are immutable
+		//Strings are immutable, change to character array
 		lettersLeft--;
+		coveredAnswer[i] = answer[i];
 	}
 	if (lettersLeft === 0) {
 		console.log('You won?');
