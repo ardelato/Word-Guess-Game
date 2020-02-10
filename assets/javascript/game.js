@@ -17,7 +17,7 @@ var question;
 var guessCollection = {
 	'What show featured talking animals with an aardvark as the main character?': 'Arthur',
 	'Pika Pika??': 'Pokemon',
-	'Football headed character who lives in Brookyln; not Stewie from Family Guy': 'Hey Arnold',
+	'Football headed character who lives in Brookyln; not Stewie from Family Guy': 'Hey Arnold!',
 	'Cowardly Dog': 'Courage',
 	'Talking Babies that go on adventures': 'Rugrats',
 	'Its time to D-D-D-D DUEL!': 'Yu-Gi-Oh',
@@ -30,12 +30,22 @@ function getRandomQA() {
 	return qaSet[Math.floor(Math.random() * qaSet.length)];
 }
 
+function isLetter(char) {
+	return char.match(/[A-Z|a-z]/i);
+}
+
 function outPutWordSubstitute() {
 	var coveredAnswer = '';
 	for (var i = 0; i < answer.length; i++) {
-		coveredAnswer += '_';
+		if (!isLetter(answer[i])) {
+			coveredAnswer += answer[i];
+		} else if (answer[i] === ' ') {
+			coveredAnswer += ' ';
+		} else {
+			coveredAnswer += '_';
+		}
 	}
-	console.log(coveredAnswer);
+	hangWordElm.innerHTML = coveredAnswer;
 }
 function resetGame() {
 	var qa = getRandomQA();
@@ -49,7 +59,7 @@ function resetGame() {
 // Will attach DOMs once the HTML fully loads
 window.onload = function() {
 	// winsElm = document.getElementById('win-status')
-	// hangWordElm = document.getElementById('hang-word');
+	hangWordElm = document.getElementById('hang-word');
 	// guessLeftElm = document.getElementById('guesses-left');
 	// guessedLettersElm = document.getElementById('guessed-letters');
 	question = document.getElementById('question');
