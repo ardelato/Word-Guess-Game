@@ -11,20 +11,25 @@
 	</head>
 	<body>
 		<div class="header-banner">
-			<img id="img-banner" src="assets/images/Rugrats Banner.jpg" alt="Rugrats Image" />
 			<h1>Hangman</h1>
 			<h2>90s Cartoon Shows</h2>
+			<img id="img-banner" src="assets/images/Rugrats Banner.jpg" alt="Rugrats Image" />
+			<h1 id="question"></h1>
 		</div>
 		<div id="FullAnswer"><h1>TV Show Name Here</h1></div>
-		<div class="game-content">
-			<h3>Press any key to get started</h3>
-			<p id="win-status">Wins:</p>
-			<p>Current Word</p>
-			<p id="hang-word">_ _ _ _ _ _ _ _</p>
-			<p>Number of Guesses Remaining</p>
-			<p id="guesses-left">12</p>
-			<p>Letters Already Gussed</p>
-			<p id="guessed-letters">[,a,s,s,d,g,g,h]</p>
+		<div class="content-container">
+			<div class="game-content main">
+				<h3><u>Press any key to get started</u></h3>
+				<p>Current Word</p>
+				<p id="hang-word">_ _ _ _ _ _ _ _</p>
+				<p>Letters Already Gussed</p>
+				<p id="guessed-letters">[,a,s,s,d,g,g,h]</p>
+			</div>
+			<div class="game-content aside">
+				<p id="win-status">Wins:</p>
+				<p>Number of Guesses Remaining:</p>
+				<p id="guesses-left">12</p>
+			</div>
 		</div>
 	</body>
 </html>
