@@ -6,7 +6,8 @@ var hangWordElm;
 var gleft = 12;
 var guessLeftElm;
 
-var guessedLettersElm = [];
+var guessedLetters = [];
+var guessedLettersElm;
 var currentLetter;
 
 var correctWord;
@@ -40,6 +41,7 @@ function isLetter(char) {
 
 // Creates a substitute string for the answer, repalcing letters with an underscore
 function outPutWordSubstitute() {
+	coveredAnswer = '';
 	for (var i = 0; i < answer.length; i++) {
 		if (!isLetter(answer[i])) {
 			coveredAnswer += answer[i];
@@ -51,24 +53,48 @@ function outPutWordSubstitute() {
 	}
 	hangWordElm.innerHTML = coveredAnswer;
 }
+
+// Resets the game for a new question
 function resetGame() {
 	var qa = getRandomQA();
-
 	question.innerHTML = qa[0];
 	answer = qa[1];
+	outPutWordSubstitute();
 	console.log(qa[0]);
 	console.log(answer);
 
 	winsElm.innerHTML = 'Wins: ' + numWins;
-	outPutWordSubstitute();
+
+	gleft = 12;
+	guessLeftElm.innerHTML = 'Number of Guesses Remaing: ' + gleft;
+
+	guessedLetters = [];
+	guessedLettersElm.innerHTML = '';
 }
 
+//Updates the elements instead of resetting
+function updateStats(newGuess) {
+	winsElm.innerHTML = 'Wins: ' + numWins;
+	guessLeftElm.innerHTML = 'Guesses Left: ' + gleft;
+	guessedLetters.push(newGuess);
+	guessedLettersElm.innerHTML = guessedLetters.toString();
+}
+
+// Logic if guessed character is wrong
+function wrongGuess(guess) {
+	if (--gleft === 0) {
+		console.log('You lost');
+		resetGame();
+	} else {
+		updateStats(guess);
+	}
+}
 // Will attach DOMs once the HTML fully loads
 window.onload = function() {
 	winsElm = document.getElementById('win-status');
 	hangWordElm = document.getElementById('hang-word');
-	// guessLeftElm = document.getElementById('guesses-left');
-	// guessedLettersElm = document.getElementById('guessed-letters');
+	guessLeftElm = document.getElementById('guesses-left');
+	guessedLettersElm = document.getElementById('guessed-letters');
 	question = document.getElementById('question');
 	resetGame();
 };
@@ -78,5 +104,8 @@ document.onkeydown = function(event) {
 	if (event.keyCode >= 65 && event.keyCode <= 90) {
 		var guess = event.key.toLowerCase();
 		console.log('Guess:' + guess);
+		if (!guessedLetters.includes(guess) && !answer.includes(guess)) {
+			wrongGuess(guess);
+		}
 	}
 };
