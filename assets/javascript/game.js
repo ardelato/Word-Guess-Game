@@ -10,10 +10,9 @@ var guessedLetters = [];
 var guessedLettersElm;
 var currentLetter;
 
-var correctWord;
-
 var answer;
 var coveredAnswer = '';
+var lettersLeft;
 
 var question;
 
@@ -42,11 +41,15 @@ function isLetter(char) {
 // Creates a substitute string for the answer, repalcing letters with an underscore
 function outPutWordSubstitute() {
 	coveredAnswer = '';
+	lettersLeft = answer.length;
+
 	for (var i = 0; i < answer.length; i++) {
 		if (!isLetter(answer[i])) {
 			coveredAnswer += answer[i];
+			lettersLeft--;
 		} else if (answer[i] === ' ') {
 			coveredAnswer += ' ';
+			lettersLeft--;
 		} else {
 			coveredAnswer += '_';
 		}
@@ -75,9 +78,10 @@ function resetGame() {
 //Updates the elements instead of resetting
 function updateStats(newGuess) {
 	winsElm.innerHTML = 'Wins: ' + numWins;
-	guessLeftElm.innerHTML = 'Guesses Left: ' + gleft;
+	guessLeftElm.innerHTML = 'NUmber of Guesses Remaing: ' + gleft;
 	guessedLetters.push(newGuess);
 	guessedLettersElm.innerHTML = guessedLetters.toString();
+	hangWordElm.innerHTML = coveredAnswer;
 }
 
 // Logic if guessed character is wrong
@@ -88,6 +92,24 @@ function wrongGuess(guess) {
 	} else {
 		updateStats(guess);
 	}
+}
+
+//Logic if guessed character exists in Answer
+function correctGuess(guess) {
+	var i = -1;
+	console.log('Correct Guess with letter: ' + guess);
+	console.log('Current lettersleft ' + lettersLeft);
+
+	while ((i = answer.toLowerCase().indexOf(guess, i + 1)) >= 0) {
+		//Strings are immutable
+		lettersLeft--;
+	}
+	if (lettersLeft === 0) {
+		console.log('You won?');
+		numWins++;
+		resetGame();
+	}
+	updateStats(guess);
 }
 // Will attach DOMs once the HTML fully loads
 window.onload = function() {
@@ -106,6 +128,8 @@ document.onkeydown = function(event) {
 		console.log('Guess:' + guess);
 		if (!guessedLetters.includes(guess) && !answer.toLowerCase().includes(guess)) {
 			wrongGuess(guess);
+		} else if (!guessedLetters.includes(guess) && answer.toLowerCase().includes(guess)) {
+			correctGuess(guess);
 		}
 	}
 };
