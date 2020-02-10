@@ -12,7 +12,10 @@ var currentLetter;
 var correctWord;
 
 var answer;
+var coveredAnswer = '';
+
 var question;
+
 //Format (Question,Answer)
 var guessCollection = {
 	'What show featured talking animals with an aardvark as the main character?': 'Arthur',
@@ -30,12 +33,13 @@ function getRandomQA() {
 	return qaSet[Math.floor(Math.random() * qaSet.length)];
 }
 
+//Will check if character is an alphabetial letter
 function isLetter(char) {
 	return char.match(/[A-Z|a-z]/i);
 }
 
+// Creates a substitute string for the answer, repalcing letters with an underscore
 function outPutWordSubstitute() {
-	var coveredAnswer = '';
 	for (var i = 0; i < answer.length; i++) {
 		if (!isLetter(answer[i])) {
 			coveredAnswer += answer[i];
@@ -49,16 +53,19 @@ function outPutWordSubstitute() {
 }
 function resetGame() {
 	var qa = getRandomQA();
-	console.log(qa[0]);
+
 	question.innerHTML = qa[0];
 	answer = qa[1];
+	console.log(qa[0]);
 	console.log(answer);
+
+	winsElm.innerHTML = 'Wins: ' + numWins;
 	outPutWordSubstitute();
 }
 
 // Will attach DOMs once the HTML fully loads
 window.onload = function() {
-	// winsElm = document.getElementById('win-status')
+	winsElm = document.getElementById('win-status');
 	hangWordElm = document.getElementById('hang-word');
 	// guessLeftElm = document.getElementById('guesses-left');
 	// guessedLettersElm = document.getElementById('guessed-letters');
